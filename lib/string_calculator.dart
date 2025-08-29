@@ -3,9 +3,21 @@ int add(String numbers) {
     return 0;
   }
 
-  // Replace newlines with commas
-  final normalizedNumbers = numbers.replaceAll('\n', ',');
-  final numbersList = normalizedNumbers.split(',');
+  String delimiter = ',';
+  String numbersToProcess = numbers;
+
+  // Check for custom delimiter
+  if (numbers.startsWith('//')) {
+    final lines = numbers.split('\n');
+    if (lines.length >= 2) {
+      delimiter = lines[0].substring(2);
+      numbersToProcess = lines.sublist(1).join('\n');
+    }
+  }
+
+  // Replace newlines with the current delimiter
+  final normalizedNumbers = numbersToProcess.replaceAll('\n', delimiter);
+  final numbersList = normalizedNumbers.split(delimiter);
 
   return numbersList.map(int.parse).reduce((sum, num) => sum + num);
 }

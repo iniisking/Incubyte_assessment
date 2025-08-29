@@ -20,4 +20,10 @@ void main() {
     expect(add('1\n2,3'), equals(6));
     expect(add('1\n2\n3'), equals(6));
   });
+
+  test('add numbers with custom delimiter returns correct sum', () {
+    expect(add('//;\n1;2'), equals(3));
+    expect(add('//|\n1|2|3'), equals(6));
+    expect(add('//\$\n10\$20\$30'), equals(60));
+  });
 }

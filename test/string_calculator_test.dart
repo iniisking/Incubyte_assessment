@@ -26,4 +26,26 @@ void main() {
     expect(add('//|\n1|2|3'), equals(6));
     expect(add('//\$\n10\$20\$30'), equals(60));
   });
+
+  test('add with negative numbers throws exception', () {
+    expect(() => add('1,-2,3'), throwsA(isA<Exception>()));
+
+    expect(
+      () => add('1,-2,3'),
+      throwsA(
+        predicate(
+          (e) => e.toString().contains('negative numbers not allowed -2'),
+        ),
+      ),
+    );
+
+    expect(
+      () => add('//;\n1;-2;-3'),
+      throwsA(
+        predicate(
+          (e) => e.toString().contains('negative numbers not allowed -2,-3'),
+        ),
+      ),
+    );
+  });
 }

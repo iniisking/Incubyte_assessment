@@ -19,5 +19,16 @@ int add(String numbers) {
   final normalizedNumbers = numbersToProcess.replaceAll('\n', delimiter);
   final numbersList = normalizedNumbers.split(delimiter);
 
-  return numbersList.map(int.parse).reduce((sum, num) => sum + num);
+  // Filter out empty strings and parse to integers
+  final nonEmptyNumbers = numbersList.where((num) => num.isNotEmpty);
+  final numbersInt = nonEmptyNumbers.map(int.parse).toList();
+
+  // Check for negative numbers
+  final negatives = numbersInt.where((num) => num < 0).toList();
+  if (negatives.isNotEmpty) {
+    final negativeStrings = negatives.map((n) => n.toString()).join(',');
+    throw Exception('negative numbers not allowed $negativeStrings');
+  }
+
+  return numbersInt.fold(0, (sum, num) => sum + num);
 }

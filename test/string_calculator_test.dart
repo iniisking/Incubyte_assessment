@@ -48,4 +48,32 @@ void main() {
       ),
     );
   });
+
+  test('add with mixed delimiters returns correct sum', () {
+    expect(add('1,2\n3'), equals(6));
+  });
+
+  test('add with large numbers returns correct sum', () {
+    expect(add('100,200,300'), equals(600));
+  });
+
+  test('add with zeros returns correct sum', () {
+    expect(add('0,5,0'), equals(5));
+    expect(add('0,0,0'), equals(0));
+  });
+
+  test('add single negative number throws exception', () {
+    expect(
+      () => add('-1'),
+      throwsA(
+        predicate(
+          (e) => e.toString().contains('negative numbers not allowed -1'),
+        ),
+      ),
+    );
+  });
+
+  test('add with trailing delimiter handles correctly', () {
+    expect(add('1,2,'), equals(3));
+  });
 }

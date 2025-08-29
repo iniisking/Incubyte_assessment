@@ -15,4 +15,9 @@ void main() {
     expect(add('1,2'), equals(3));
     expect(add('3,5'), equals(8));
   });
+
+  test('add numbers with new lines returns correct sum', () {
+    expect(add('1\n2,3'), equals(6));
+    expect(add('1\n2\n3'), equals(6));
+  });
 }

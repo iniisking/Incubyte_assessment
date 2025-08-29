@@ -10,4 +10,9 @@ void main() {
     expect(add('1'), equals(1));
     expect(add('5'), equals(5));
   });
+
+  test('add two numbers returns their sum', () {
+    expect(add('1,2'), equals(3));
+    expect(add('3,5'), equals(8));
+  });
 }
